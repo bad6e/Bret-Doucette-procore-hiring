@@ -1,8 +1,7 @@
 source 'https://rubygems.org'
-
-
+ruby "2.3.1"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.3'
+gem 'rails', '4.2.6'
 gem 'pg'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
@@ -27,9 +26,15 @@ gem 'rails_12factor'
 gem 'text-table'
 
 group :development, :test do
-  gem 'pry-rails'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'pry-byebug'
   gem 'spring'
   gem 'rspec-rails', '~> 3.5'
+  gem 'factory_girl_rails'
+  gem "shoulda-matchers", ">= 3.0.0",
+    require: false
+  gem 'database_cleaner'
+  gem 'launchy'
+  gem 'better_errors'
+  gem 'faker'
 end
 
