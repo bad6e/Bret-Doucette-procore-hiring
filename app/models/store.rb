@@ -22,4 +22,8 @@ class Store < ActiveRecord::Base
   validates :zagat_rating,
               presence: true,
               numericality: { only_integer: true }
+
+  scope :find_tacos_by_ids, -> (ids) { joins(:tacos).where(tacos: {id: ids}) }
+  scope :find_salsas_by_ids, -> (ids) { joins(:salsas).where(salsas: {id: ids}) }
+  scope :group_results, -> (count) { group(:id).having('count(*) >= ?', count) }
 end
