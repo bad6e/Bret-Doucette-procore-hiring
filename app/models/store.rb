@@ -23,7 +23,15 @@ class Store < ActiveRecord::Base
               presence: true,
               numericality: { only_integer: true }
 
-  scope :find_tacos_by_ids, -> (ids) { joins(:tacos).where(tacos: {id: ids}) }
-  scope :find_salsas_by_ids, -> (ids) { joins(:salsas).where(salsas: {id: ids}) }
+  scope :find_stores_with_specific_tacos, -> (ids) { joins(:tacos).where(tacos: {id: ids}) }
+  scope :find_stores_with_specific_salsas, -> (ids) { joins(:salsas).where(salsas: {id: ids}) }
   scope :group_results, -> (count) { group(:id).having('count(*) >= ?', count) }
+
+  def self.find_all_stores_with_specific_tacos(ids, count)
+    find_stores_with_specific_tacos(ids).group_results(count)
+  end
+
+  def self.find_all_stores_with_specific_salsas(ids, count)
+    find_stores_with_specific_salsas(ids).group_results(count)
+  end
 end
