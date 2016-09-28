@@ -73,7 +73,7 @@ ActiveRecord::Schema.define(version: 20150831035337) do
   add_foreign_key "car_washes", "stores", name: "car_washes_store_id_fkey"
   add_foreign_key "stores", "cities", name: "stores_city_id_fkey"
   add_foreign_key "stores_salsas", "stores", name: "stores_salsas_store_id_fkey"
-  add_foreign_key "stores_salsas", "tacos", column: "salsa_id", name: "stores_salsas_salsa_id_fkey"
+  add_foreign_key "stores_salsas", "salsas", name: "stores_salsas_salsa_id_fkey"
   add_foreign_key "stores_tacos", "stores", name: "stores_tacos_store_id_fkey"
   add_foreign_key "stores_tacos", "tacos", name: "stores_tacos_taco_id_fkey"
 end
