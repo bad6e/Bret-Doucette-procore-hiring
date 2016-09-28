@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::SalsasController, type: :controller do
-   describe "GET /api/v1/interests" do
+   describe "GET /api/v1/salsas" do
 
     it "returns empty array if no Salsas/Sauces" do
       get :index, format: :json
@@ -18,6 +18,7 @@ RSpec.describe Api::V1::SalsasController, type: :controller do
       get :index, format: :json
       expect(response_data.length).to eq(4)
       expect(response_data[0][:name]).to eq(salsa_one.name)
+      expect(response_data[3][:name]).to eq(salsa_four.name)
     end
   end
 end
