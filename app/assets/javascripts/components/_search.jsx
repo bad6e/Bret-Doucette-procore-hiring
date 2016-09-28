@@ -74,13 +74,13 @@ var Search = React.createClass({
   },
 
   searchTacosAndSalas : function() {
-    console.log(this.state.checkedTacoIds)
-    console.log(this.state.checkedSalsaIds)
+    let tacos = this.state.checkedTacoIds;
+    let salsas = this.state.checkedSalsaIds;
 
-    if (this.state.checkedTacoIds.length === 0 && this.state.checkedSalsaIds.length === 0) {
+    if (tacos.length === 0 && salsas.length === 0) {
       this.setState({
-        stores: ''
-      })
+        stores: []
+      });
     } else {
       $.ajax({
         url: this.formatSearchUrl(),
@@ -100,38 +100,43 @@ var Search = React.createClass({
 
   renderStores: function(key) {
     let selectStore = this.state.stores[key];
-
     return <Store key= {selectStore.id}
-                  name= {selectStore.name}
-                  id= {selectStore.id}
-                  city = {selectStore.city.name}
-           />
+                    name= {selectStore.name}
+                    id= {selectStore.id}
+                    city = {selectStore.city.name}
+            />
+  },
+
+  renderStoreTableHeader: function() {
+    return this.state.checkedTacoIds.length > 0 || this.state.checkedSalsaIds.length > 0 ? <th>Store</th> : <th className="title">Select Tacos and Sauces on the Left!</th>
+  },
+
+  renderCityTableHeader: function() {
+    return this.state.checkedTacoIds.length > 0 || this.state.checkedSalsaIds.length > 0 ? <th>City</th> : null
   },
 
   render : function() {
     return (
       <div className="container">
         <div className="row">
-          <div className="col-md-6">
+          <div className="col-md-4">
             <TacoApi url= '/api/v1/tacos'
                      handleChangeTacoIds= {this.handleChangeTacoIds}
             />
           </div>
-
           <div className="col-md-6">
             <h5>Stores matching your requirements:</h5>
             <table>
               <thead>
                 <tr>
-                  <th>Store</th>
-                  <th>City</th>
+                  {this.renderStoreTableHeader()}
+                  {this.renderCityTableHeader()}
                 </tr>
               </thead>
               <tbody>
                 {Object.keys(this.state.stores).map(this.renderStores)}
               </tbody>
             </table>
-
           </div>
         </div>
         <div className="row">
