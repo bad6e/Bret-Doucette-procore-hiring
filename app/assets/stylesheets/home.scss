@@ -2,6 +2,20 @@ body {
     padding: 20px
 }
 
-td {
-  padding: 5px;
+table, th, td {
+   border: 1px solid black;
+   padding: 2px;
+}
+
+table {
+    width: 100%;
+}
+
+th {
+    height: 10px;
+}
+
+.title {
+  text-align: center;
+  color: red;
 }
