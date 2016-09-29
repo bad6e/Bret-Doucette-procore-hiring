@@ -119,7 +119,7 @@ var Search = React.createClass({
     return (
       <div className="container">
         <div className="row">
-          <div className="col-md-4">
+          <div className="col-md-4 taco-field">
             <TacoApi url= '/api/v1/tacos'
                      handleChangeTacoIds= {this.handleChangeTacoIds}
             />
@@ -140,7 +140,7 @@ var Search = React.createClass({
           </div>
         </div>
         <div className="row">
-          <div className="col-md-4">
+          <div className="col-md-4 salsa-field">
             <SalsaApi url= '/api/v1/salsas'
                       handleChangeSalsaIds= {this.handleChangeSalsaIds}
             />
