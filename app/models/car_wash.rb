@@ -2,7 +2,8 @@ class CarWash < ActiveRecord::Base
   belongs_to :store
 
   validates :store_id,
-              presence: true
+              presence: true,
+              uniqueness: true
 
   validates :hot_wax,
               inclusion: { in: [true, false] }

@@ -11,6 +11,8 @@ describe CarWash do
 
   it { should validate_presence_of(:store_id) }
 
+  it { should validate_uniqueness_of(:store_id) }
+
   it { should belong_to(:store) }
 
   it do

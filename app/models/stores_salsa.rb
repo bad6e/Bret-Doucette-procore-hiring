@@ -6,7 +6,8 @@ class StoresSalsa < ActiveRecord::Base
               presence: true
 
   validates :salsa_id,
-              presence: true
+              presence: true,
+              uniqueness: { scope: :store_id }
 
   validates :spiciness,
               presence: true,
