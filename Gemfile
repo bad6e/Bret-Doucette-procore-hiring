@@ -15,6 +15,8 @@ gem 'bootstrap-sass', '~> 3.3.5'
 gem 'active_model_serializers', github: 'rails-api/active_model_serializers'
 
 group :development, :test do
+  gem 'capybara'
+  gem 'selenium-webdriver'
   gem 'pry-byebug'
   gem 'spring'
   gem 'rspec-rails', '~> 3.5'
