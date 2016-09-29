@@ -15,6 +15,18 @@ RSpec.describe Api::V1::SearchController, type: :controller do
       end
     end
 
+    context "gibberish is submitted" do
+      before(:each) do
+        get :index, tacos: "!!#@}", salsas: "@@#{}", format: :json
+      end
+
+      it { should respond_with(200) }
+
+      it "returns an empty array" do
+        expect(response_data).to eq([])
+      end
+    end
+
     context "only tacos ids are submitted" do
       before(:each) do
         @store_one = FactoryGirl.create(:store)
@@ -59,7 +71,7 @@ RSpec.describe Api::V1::SearchController, type: :controller do
       end
     end
 
-    context "both salsa and taco ids are submitted" do
+    context "both salsa and taco ids are submitted - results are found" do
       before(:each) do
         @store_one   = FactoryGirl.create(:store)
         @store_two   = FactoryGirl.create(:store)
@@ -76,23 +88,26 @@ RSpec.describe Api::V1::SearchController, type: :controller do
         StoresSalsa.create(store_id: @store_one.id, salsa_id: @salsa_one.id, spiciness: 5)
         StoresSalsa.create(store_id: @store_two.id, salsa_id: @salsa_one.id, spiciness: 6)
         StoresSalsa.create(store_id: @store_two.id, salsa_id: @salsa_two.id, spiciness: 7)
-      end
 
-      it "returns all the stores that have those selected salsas AND tacos" do
         searched_taco_ids  = @taco_one.id.to_s + ',' + @taco_two.id.to_s
         searched_salsa_ids = @salsa_one.id.to_s + ',' + @salsa_two.id.to_s
         get :index, salsas: searched_salsa_ids, tacos: searched_taco_ids, format: :json
+      end
 
-        expect(response.code).to eq("200")
+      it { should respond_with(200) }
+
+      it "returns all the stores that have those selected salsas AND tacos" do
         expect(response_data.length).to eq(1)
         expect(response_data[0][:id]).to eq(@store_two.id)
       end
+    end
+
+    context "both salsa and taco ids are submitted - no results are found" do
+      before(:each) do
+        get :index, tacos: "1", salsas: "1", format: :json
+      end
 
       it "returns all no stores if there is not a match" do
-        searched_taco_ids  = @taco_one.id.to_s + ',' + @taco_two.id.to_s + ',' + @taco_three.id.to_s
-        searched_salsa_ids = @salsa_one.id.to_s + ',' + @salsa_two.id.to_s
-        get :index, tacos: searched_taco_ids, salsas: searched_salsa_ids, format: :json
-
         expect(response.code).to eq("200")
         expect(response_data.length).to eq(0)
       end
