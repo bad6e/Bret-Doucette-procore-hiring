@@ -3,7 +3,9 @@ require File.expand_path('../../config/environment', __FILE__)
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'spec_helper'
 require 'rspec/rails'
-require 'spec_helper'
+require 'capybara/rails'
+require 'capybara/rspec'
+require 'support/features'
 require 'shoulda/matchers'
 
 ActiveRecord::Migration.maintain_test_schema!
@@ -19,7 +21,7 @@ RSpec.configure do |config|
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
   config.include FactoryGirl::Syntax::Methods
 
-  config.use_transactional_fixtures = true
+  config.use_transactional_fixtures = false
 
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
