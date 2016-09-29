@@ -52,26 +52,44 @@ shared_context "features" do
   }
 
   let!(:stores_taco_one) {
-    StoresTaco.create(store_id: store_one.id, taco_id: taco_one.id, price: BigDecimal.new('3.51'))
+    StoresTaco.create(store_id: store_one.id,
+                      taco_id: taco_one.id,
+                      price: BigDecimal.new('3.51')
+                     )
   }
 
   let!(:stores_taco_two) {
-    StoresTaco.create(store_id: store_two.id, taco_id: taco_one.id, price: BigDecimal.new('3.52'))
+    StoresTaco.create(store_id: store_two.id,
+                      taco_id: taco_one.id,
+                      price: BigDecimal.new('3.52')
+                     )
   }
 
   let!(:stores_taco_three) {
-    StoresTaco.create(store_id: store_one.id, taco_id: taco_three.id, price: BigDecimal.new('3.53'))
+    StoresTaco.create(store_id: store_one.id,
+                      taco_id: taco_three.id,
+                      price: BigDecimal.new('3.53')
+                     )
   }
 
   let!(:stores_salsa_one) {
-   StoresSalsa.create(store_id: store_one.id, salsa_id: salsa_one.id, spiciness: 5)
+   StoresSalsa.create(store_id: store_one.id,
+                      salsa_id: salsa_one.id,
+                      spiciness: 5
+                     )
   }
 
   let!(:stores_salsa_two) {
-    StoresSalsa.create(store_id: store_one.id, salsa_id: salsa_two.id, spiciness: 6)
+    StoresSalsa.create(store_id: store_one.id,
+                       salsa_id: salsa_two.id,
+                       spiciness: 6
+                       )
   }
 
   let!(:stores_salsa_three) {
-    StoresSalsa.create(store_id: store_two.id, salsa_id: salsa_two.id, spiciness: 7)
+    StoresSalsa.create(store_id: store_two.id,
+                       salsa_id: salsa_two.id,
+                       spiciness: 7
+                      )
   }
 end

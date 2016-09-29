@@ -5,8 +5,8 @@ feature "home page - store finder" do
 
   scenario "user can see list of tacos and sauces", js: true do
     visit root_path
-    random_taco  = Taco.find(Taco.pluck(:id).sample)
-    random_salsa = Salsa.find(Salsa.pluck(:id).sample)
+    random_taco  = Taco.all.sample
+    random_salsa = Salsa.all.sample
 
     expect(page).to have_content(random_taco.name)
     expect(page).to have_content(random_salsa.name)
