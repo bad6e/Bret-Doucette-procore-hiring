@@ -3,12 +3,14 @@ var Salsa = React.createClass({
     const { name, id, handleChange } = this.props;
     return (
       <div>
-        <input type="checkbox"
-               name={name}
-               value={id}
-               onChange={handleChange}
-        />
+        <label>
+          <input type="checkbox"
+                 name={name}
+                 value={id}
+                 onChange={handleChange}
+          />
                {name}
+        </label>
       </div>
     );
   }
