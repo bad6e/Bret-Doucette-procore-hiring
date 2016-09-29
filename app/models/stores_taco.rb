@@ -6,10 +6,11 @@ class StoresTaco < ActiveRecord::Base
               presence: true
 
   validates :taco_id,
-              presence: true
+              presence: true,
+              uniqueness: { scope: :store_id }
 
   validates :price,
               presence: true,
               numericality: :true,
-              :format => { :with => /\A\d+(?:\.\d{0,2})?\z/ }
+              format: { with: /\A\d+(?:\.\d{0,2})?\z/ }
 end
