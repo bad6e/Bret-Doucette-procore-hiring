@@ -3,12 +3,14 @@ var Taco = React.createClass({
     const { name, id, handleChange } = this.props;
     return (
       <div>
-        <input type="checkbox"
+        <label>
+          <input type="checkbox"
                name={name}
                value={id}
                onChange={handleChange}
-        />
+          />
                {name}
+        </label>
       </div>
     );
   }
