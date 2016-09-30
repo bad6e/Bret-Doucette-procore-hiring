@@ -1,5 +1,5 @@
 var Salsa = React.createClass({
-  render : function() {
+  render: function() {
     const { name, id, handleChange } = this.props;
     return (
       <div>
