@@ -1,25 +1,25 @@
 var Search = React.createClass({
 
-  getInitialState : function () {
+  getInitialState: function () {
     return {
-      stores: '',
+      stores: [],
       checkedTacoIds: [],
       checkedSalsaIds: []
     };
   },
 
-  findItem: function(state, id) {
-    let foundItem = _.find(state, function(o) {
-      return id === o;
+  findItemInState: function(itemIds, id) {
+    let foundItem = _.find(itemIds, function(itemId) {
+      return id === itemId;
     });
-    return foundItem
+    return foundItem;
   },
 
-  removeItem: function(state, id) {
-    let removeItem = _.remove(state, function(o) {
-      return o != id
+  removeItemFromState: function(itemIds, id) {
+    let removeItem = _.remove(itemIds, function(itemId) {
+      return itemId !== id;
     })
-    return removeItem
+    return removeItem;
   },
 
   updateTacosState: function(updatedState, callback) {
@@ -35,30 +35,30 @@ var Search = React.createClass({
   },
 
   handleChangeTacoIds: function(id) {
-    let checkedTacoState = this.state.checkedTacoIds
-    let foundTaco = this.findItem(checkedTacoState, id);
+    const checkedTacoState = this.state.checkedTacoIds;
+    const foundTaco = this.findItemInState(checkedTacoState, id);
 
     if (foundTaco) {
-      let remainingCheckedTacos = this.removeItem(checkedTacoState, id);
-      this.updateTacosState(remainingCheckedTacos, this.searchTacosAndSalas)
+      const remainingCheckedTacos = this.removeItemFromState(checkedTacoState, id);
+      this.updateTacosState(remainingCheckedTacos, this.searchTacosAndSalas);
     } else {
-      let updatedCheckedTacos = checkedTacoState.slice();
+      const updatedCheckedTacos = checkedTacoState.slice();
       updatedCheckedTacos.push(id);
-      this.updateTacosState(updatedCheckedTacos, this.searchTacosAndSalas)
+      this.updateTacosState(updatedCheckedTacos, this.searchTacosAndSalas);
     }
   },
 
   handleChangeSalsaIds: function(id) {
-    let checkedSalsaState = this.state.checkedSalsaIds
-    let foundSalsa = this.findItem(checkedSalsaState, id);
+    const checkedSalsaState = this.state.checkedSalsaIds;
+    const foundSalsa = this.findItem(checkedSalsaState, id);
 
     if (foundSalsa) {
       let remainingCheckedSalsas = this.removeItem(checkedSalsaState, id);
-      this.updateSalsasState(remainingCheckedSalsas, this.searchTacosAndSalas)
+      this.updateSalsasState(remainingCheckedSalsas, this.searchTacosAndSalas);
     } else {
       let updatedCheckedSalsas = checkedSalsaState.slice();
       updatedCheckedSalsas.push(id);
-      this.updateSalsasState(updatedCheckedSalsas, this.searchTacosAndSalas)
+      this.updateSalsasState(updatedCheckedSalsas, this.searchTacosAndSalas);
     }
   },
 
@@ -73,9 +73,9 @@ var Search = React.createClass({
     return url;
   },
 
-  searchTacosAndSalas : function() {
-    let tacos = this.state.checkedTacoIds;
-    let salsas = this.state.checkedSalsaIds;
+  searchTacosAndSalas: function() {
+    const tacos = this.state.checkedTacoIds;
+    const salsas = this.state.checkedSalsaIds;
 
     if (tacos.length === 0 && salsas.length === 0) {
       this.setState({
@@ -86,7 +86,7 @@ var Search = React.createClass({
         url: this.formatSearchUrl(),
         dataType: 'json',
         type: 'GET',
-        success:   function(stores) {
+        success: function(stores) {
           this.setState({
             stores : stores
           });
@@ -98,12 +98,11 @@ var Search = React.createClass({
     }
   },
 
-  renderStores: function(key) {
-    let selectStore = this.state.stores[key];
-    return <Store key= {selectStore.id}
-                    name= {selectStore.name}
-                    id= {selectStore.id}
-                    city = {selectStore.city.name}
+  renderStores: function(store) {
+    return <Store key= {store.id}
+                  name= {store.name}
+                  id= {store.id}
+                  city = {store.city.name}
             />
   },
 
@@ -115,12 +114,12 @@ var Search = React.createClass({
     return this.state.checkedTacoIds.length > 0 || this.state.checkedSalsaIds.length > 0 ? <th>City</th> : null
   },
 
-  render : function() {
+  render: function() {
     return (
       <div className="container">
         <div className="row">
           <div className="col-md-4 taco-field">
-            <TacoApi url= '/api/v1/tacos'
+            <Tacos url= '/api/v1/tacos'
                      handleChangeTacoIds= {this.handleChangeTacoIds}
             />
           </div>
@@ -134,14 +133,14 @@ var Search = React.createClass({
                 </tr>
               </thead>
               <tbody>
-                {Object.keys(this.state.stores).map(this.renderStores)}
+                {this.state.stores.map(this.renderStores)}
               </tbody>
             </table>
           </div>
         </div>
         <div className="row">
           <div className="col-md-4 salsa-field">
-            <SalsaApi url= '/api/v1/salsas'
+            <Salsas url= '/api/v1/salsas'
                       handleChangeSalsaIds= {this.handleChangeSalsaIds}
             />
           </div>

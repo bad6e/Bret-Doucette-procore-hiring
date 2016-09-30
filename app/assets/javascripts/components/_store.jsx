@@ -1,5 +1,5 @@
 var Store = React.createClass({
-  render : function() {
+  render: function() {
     const { name, id, city } = this.props;
     return (
       <tr>

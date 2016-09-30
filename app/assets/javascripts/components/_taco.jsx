@@ -1,5 +1,5 @@
 var Taco = React.createClass({
-  render : function() {
+  render: function() {
     const { name, id, handleChange } = this.props;
     return (
       <div>
@@ -9,7 +9,7 @@ var Taco = React.createClass({
                value={id}
                onChange={handleChange}
           />
-               {name}
+          {name}
         </label>
       </div>
     );
