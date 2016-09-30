@@ -53,7 +53,7 @@ var Search = React.createClass({
     const foundSalsa = this.findItemInState(checkedSalsaState, id);
 
     if (foundSalsa) {
-      let remainingCheckedSalsas = this.removeItem(checkedSalsaState, id);
+      let remainingCheckedSalsas = this.removeItemFromState(checkedSalsaState, id);
       this.updateSalsasState(remainingCheckedSalsas, this.searchTacosAndSalas);
     } else {
       let updatedCheckedSalsas = checkedSalsaState.slice();
