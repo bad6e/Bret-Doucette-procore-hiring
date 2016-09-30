@@ -9,7 +9,7 @@ var Salsa = React.createClass({
                  value={id}
                  onChange={handleChange}
           />
-               {name}
+          {name}
         </label>
       </div>
     );

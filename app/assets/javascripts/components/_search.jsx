@@ -8,18 +8,18 @@ var Search = React.createClass({
     };
   },
 
-  findItem: function(itemIds, id) {
+  findItemInState: function(itemIds, id) {
     let foundItem = _.find(itemIds, function(itemId) {
       return id === itemId;
     });
-    return foundItem
+    return foundItem;
   },
 
   removeItemFromState: function(itemIds, id) {
     let removeItem = _.remove(itemIds, function(itemId) {
-      return itemId !== id
+      return itemId !== id;
     })
-    return removeItem
+    return removeItem;
   },
 
   updateTacosState: function(updatedState, callback) {
@@ -35,30 +35,30 @@ var Search = React.createClass({
   },
 
   handleChangeTacoIds: function(id) {
-    const checkedTacoState = this.state.checkedTacoIds
-    const foundTaco = this.findItem(checkedTacoState, id);
+    const checkedTacoState = this.state.checkedTacoIds;
+    const foundTaco = this.findItemInState(checkedTacoState, id);
 
     if (foundTaco) {
       const remainingCheckedTacos = this.removeItemFromState(checkedTacoState, id);
-      this.updateTacosState(remainingCheckedTacos, this.searchTacosAndSalas)
+      this.updateTacosState(remainingCheckedTacos, this.searchTacosAndSalas);
     } else {
       const updatedCheckedTacos = checkedTacoState.slice();
       updatedCheckedTacos.push(id);
-      this.updateTacosState(updatedCheckedTacos, this.searchTacosAndSalas)
+      this.updateTacosState(updatedCheckedTacos, this.searchTacosAndSalas);
     }
   },
 
   handleChangeSalsaIds: function(id) {
-    const checkedSalsaState = this.state.checkedSalsaIds
+    const checkedSalsaState = this.state.checkedSalsaIds;
     const foundSalsa = this.findItem(checkedSalsaState, id);
 
     if (foundSalsa) {
       let remainingCheckedSalsas = this.removeItem(checkedSalsaState, id);
-      this.updateSalsasState(remainingCheckedSalsas, this.searchTacosAndSalas)
+      this.updateSalsasState(remainingCheckedSalsas, this.searchTacosAndSalas);
     } else {
       let updatedCheckedSalsas = checkedSalsaState.slice();
       updatedCheckedSalsas.push(id);
-      this.updateSalsasState(updatedCheckedSalsas, this.searchTacosAndSalas)
+      this.updateSalsasState(updatedCheckedSalsas, this.searchTacosAndSalas);
     }
   },
 
